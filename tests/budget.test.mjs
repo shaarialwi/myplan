@@ -1,0 +1,4 @@
+import assert from 'node:assert/strict';import{cents,validDate,parseReceipt}from'../lib/budget.mjs';
+assert.equal(cents('12.30'),1230);assert.equal(cents('0.01'),1);assert.equal(cents('-2'),null);assert.equal(cents('1.234'),null);assert.equal(validDate('2026-02-30'),false);
+const a=parseReceipt('MY GROCERY\n12/11/2026\nSUBTOTAL 20.00\nTOTAL RM 21.20\nCash tendered 50.00\nChange 28.80');assert.equal(a.amount,'21.20');assert.equal(a.date,'2026-11-12');assert.equal(a.merchant,'MY GROCERY');
+const b=parseReceipt('Payment successful\nRecipient: Cafe ABC\n2026-11-12\nAmount MYR 8.50\nDuitNow QR');assert.equal(b.amount,'8.50');assert.equal(b.merchant,'Cafe ABC');assert.equal(b.method,'DuitNow / QR');assert.equal(parseReceipt('Unreadable').amount,'');console.log('Budget parsing and money validation checks passed.');
